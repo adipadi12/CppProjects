@@ -26,19 +26,19 @@ int main() {
 
 	wstring map;
 	map += L"################";
+	map += L"#...######.....#";
 	map += L"#..............#";
 	map += L"#..............#";
+	map += L"#..........#...#";
+	map += L"#..........#...#";
 	map += L"#..............#";
-	map += L"#..............#";
-	map += L"#..............#";
-	map += L"#..............#";
-	map += L"#..............#";
-	map += L"#..............#";
-	map += L"#..............#";
-	map += L"#..............#";
-	map += L"#..............#";
-	map += L"#..............#";
-	map += L"#..............#";
+	map += L"#..#.....###...#";
+	map += L"#..#.......#...#";
+	map += L"#..#.......#...#";
+	map += L"#..#.......#...#";
+	map += L"#..#...........#";
+	map += L"#..#...........#";
+	map += L"#..........#####";
 	map += L"#..............#";
 	map += L"################";
 
@@ -55,17 +55,28 @@ int main() {
 		//controls
 		if (GetAsyncKeyState((unsigned short)'A') & 0x8000)
 		{
-			fPlayerA -= (0.1f) * fElapsedTime;
+			fPlayerA -= (1.0f) * fElapsedTime;
 		}
 		if (GetAsyncKeyState((unsigned short)'D') & 0x8000)
 		{
-			fPlayerA += (0.1f) * fElapsedTime;
+			fPlayerA += (1.0f) * fElapsedTime;
 		}
+		if (GetAsyncKeyState((unsigned short)'W') & 0x8000)
+		{
+			fPlayerX += sinf(fPlayerA) * 5.0f * fElapsedTime;
+			fPlayerY += cosf(fPlayerA) * 5.0f * fElapsedTime;
+		}
+		if (GetAsyncKeyState((unsigned short)'S') & 0x8000)
+		{
+			fPlayerX -= sinf(fPlayerA) * 5.0f * fElapsedTime;
+			fPlayerY -= cosf(fPlayerA) * 5.0f * fElapsedTime;
+		}
+
 		for (int x = 0; x < nScreenWidth; x++)
 		{//potters algo ig.  for each column calculates the projected ray angle into world space
-			float fRayAngle = (fPlayerA - fFOV / 2.0f) + ((float)x / (float)nScreenWidth) * fFOV;
+			float fRayAngle = fPlayerA + (((float)x / (float)nScreenWidth) - 0.5f) * fFOV;
 
-			float fDistanceToWall = 0;
+			float fDistanceToWall = 0.05f;
 			bool bHitWall = false;
 
 			float fEyeX = sinf(fRayAngle); //unit vector for ray in player space
@@ -94,16 +105,57 @@ int main() {
 			int nCeiling = (float)(nScreenHeight / 2.0) - nScreenHeight / ((float)fDistanceToWall);
 			int nFloor = nScreenHeight - nCeiling;
 
+			short nShade = ' '; //to create the illusion of depth for walls that are far away
+
+			if (fDistanceToWall <= fDepth / 4.0f) //very close
+			{
+				nShade = 0x2588;
+			}
+			else if (fDistanceToWall < fDepth / 3.0f)
+			{
+				nShade = 0x2593;
+			}
+			else if (fDistanceToWall < fDepth / 2.0f) {
+				nShade = 0x2592;
+			}
+			else if (fDistanceToWall < fDepth)
+			{
+				nShade = 0x2591; //too far away
+			}
+			else { nShade = ' '; }
+
+
 			for (int y = 0; y < nScreenHeight; y++)
 			{
-				if (y < nCeiling) {
+				if (y <= nCeiling) {
 					screen[y * nScreenWidth + x] = ' '; //ceiling
 				}
 				else if(y > nCeiling && y <= nFloor) {
-					screen[y * nScreenWidth + x] = '#'; //wall
+					screen[y * nScreenWidth + x] = nShade; //wall
 				}
+				//shading floor based on distance to increase perception
 				else {
-					screen[y * nScreenWidth + x] = ' '; //floor
+					float b = 1.0f - (((float)y - nScreenHeight / 2.0f) / ((float)nScreenHeight / 2.0f));
+					if (b < 0.25)
+					{
+						nShade = '#';
+					}
+					else if (b < 0.5)
+					{
+						nShade = 'X';
+					}
+					else if (b < 0.75)
+					{
+						nShade = '.';
+					}
+					else if (b < 0.9)
+					{
+						nShade = '-';
+					}
+					else {
+						nShade = ' ';
+					}
+					screen[y * nScreenWidth + x] = nShade;
 				}
 			}
 		}
