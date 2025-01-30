@@ -1,7 +1,11 @@
 ﻿  FPSTrial1.cpp
-C:\C++ Projects Git\CppProjects\FPSTrial1\FPSTrial1.cpp(19,12): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\C++ Projects Git\CppProjects\FPSTrial1\FPSTrial1.cpp(99,32): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
-C:\C++ Projects Git\CppProjects\FPSTrial1\FPSTrial1.cpp(105,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\C++ Projects Git\CppProjects\FPSTrial1\FPSTrial1.cpp(21,12): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\C++ Projects Git\CppProjects\FPSTrial1\FPSTrial1.cpp(71,37): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
+C:\C++ Projects Git\CppProjects\FPSTrial1\FPSTrial1.cpp(82,37): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
+C:\C++ Projects Git\CppProjects\FPSTrial1\FPSTrial1.cpp(114,32): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
+C:\C++ Projects Git\CppProjects\FPSTrial1\FPSTrial1.cpp(135,20): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\C++ Projects Git\CppProjects\FPSTrial1\FPSTrial1.cpp(146,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\C++ Projects Git\CppProjects\FPSTrial1\FPSTrial1.cpp(213,62): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
   FPSTrial1.vcxproj -> C:\C++ Projects Git\CppProjects\FPSTrial1\x64\Debug\FPSTrial1.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

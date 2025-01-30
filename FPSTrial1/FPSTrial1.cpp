@@ -1,5 +1,7 @@
 #include <iostream>
 #include <chrono>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 #include <Windows.h>
@@ -26,7 +28,7 @@ int main() {
 
 	wstring map;
 	map += L"################";
-	map += L"#...######.....#";
+	map += L"#..............#";
 	map += L"#..............#";
 	map += L"#..............#";
 	map += L"#..........#...#";
@@ -38,7 +40,7 @@ int main() {
 	map += L"#..#.......#...#";
 	map += L"#..#...........#";
 	map += L"#..#...........#";
-	map += L"#..........#####";
+	map += L"#..........##..#";
 	map += L"#..............#";
 	map += L"################";
 
@@ -65,11 +67,23 @@ int main() {
 		{
 			fPlayerX += sinf(fPlayerA) * 5.0f * fElapsedTime;
 			fPlayerY += cosf(fPlayerA) * 5.0f * fElapsedTime;
+
+			if (map[(int)fPlayerY * mapWidth + (int)fPlayerX] == '#')
+			{
+				fPlayerX -= sinf(fPlayerA) * 5.0f * fElapsedTime; //checks if it hits a wall and if it does doesn't allow further movement
+				fPlayerY -= cosf(fPlayerA) * 5.0f * fElapsedTime;
+			}
 		}
 		if (GetAsyncKeyState((unsigned short)'S') & 0x8000)
 		{
 			fPlayerX -= sinf(fPlayerA) * 5.0f * fElapsedTime;
 			fPlayerY -= cosf(fPlayerA) * 5.0f * fElapsedTime;
+
+			if (map[(int)fPlayerY * mapWidth + (int)fPlayerX] == '#')
+			{
+				fPlayerX += sinf(fPlayerA) * 5.0f * fElapsedTime; //checks if it hits a wall and if it does doesn't allow further movement
+				fPlayerY += cosf(fPlayerA) * 5.0f * fElapsedTime;
+			}
 		}
 
 		for (int x = 0; x < nScreenWidth; x++)
@@ -78,6 +92,7 @@ int main() {
 
 			float fDistanceToWall = 0.05f;
 			bool bHitWall = false;
+			bool bBoundary = false;
 
 			float fEyeX = sinf(fRayAngle); //unit vector for ray in player space
 			float fEyeY = cosf(fRayAngle);
@@ -98,8 +113,34 @@ int main() {
 					//ray inbounds tests to see if ray hits a wall block
 					if (map[nTestY * mapWidth + nTestX] == '#') {
 						bHitWall = true;
+
+						vector<pair<float, float>> p; //distance, dot
+						//stores the closest angles from each cell to player so we 
+						//can draw boundaries to increase immersion
+
+						for (int tx = 0; tx < 3; tx++)
+						{
+							for (int ty = 0; ty < 3; ty++)
+							{
+								float vy = (float)nTestY + ty - fPlayerY;
+								float vx = (float)nTestX + tx - fPlayerX;
+								float d = sqrt(vx * vx + vy * vy);
+								float dot = (fEyeX * (vx / d)) + (fEyeY * (vy / d));
+								p.push_back(make_pair(d, dot));
+							}
+						}
+						sort(p.begin(), p.end(), [](const pair<float, float>& left, const pair<float, float>& right)
+							{return left.first < right.first; });
+
+						float fBound = 0.01;
+						bBoundary = false;
+						if (acos(p[0].second) < fBound || acos(p[1].second) < fBound) {
+							bBoundary = true;
+						}
+
 					}
-				}
+
+					}
 			}
 			//calculate dist ceiling to floor
 			int nCeiling = (float)(nScreenHeight / 2.0) - nScreenHeight / ((float)fDistanceToWall);
@@ -122,8 +163,10 @@ int main() {
 			{
 				nShade = 0x2591; //too far away
 			}
-			else { nShade = ' '; }
-
+			if(bBoundary && fDistanceToWall < fDepth)
+			{
+				nShade = ' ';
+			}
 
 			for (int y = 0; y < nScreenHeight; y++)
 			{
@@ -159,6 +202,17 @@ int main() {
 				}
 			}
 		}
+
+		// Display Stats
+		swprintf_s(screen, 40, L"X=%3.2f, Y=%3.2f, A=%3.2f FPS=%3.2f ", fPlayerX, fPlayerY, fPlayerA, 1.0f / fElapsedTime);
+
+		// Display Map
+		for (int nx = 0; nx < mapWidth; nx++)
+			for (int ny = 0; ny < mapWidth; ny++)
+			{
+				screen[(ny + 1) * nScreenWidth + nx] = map[ny * mapWidth + nx];
+			}
+		screen[((int)fPlayerX + 1) * nScreenWidth + (int)fPlayerY] = 'P';
 
 		screen[nScreenWidth * nScreenHeight - 1] = '\0';
 		WriteConsoleOutputCharacter(hConsole, screen, nScreenWidth * nScreenHeight, { 0,0 }, &dwBytesWritten);
