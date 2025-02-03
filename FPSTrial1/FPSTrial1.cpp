@@ -29,9 +29,9 @@ int main() {
 	wstring map;
 	map += L"################";
 	map += L"#..............#";
-	map += L"#..............#";
-	map += L"#..............#";
-	map += L"#..........#...#";
+	map += L"#....#####.....#";
+	map += L"#....#####.....#";
+	map += L"#....#####.#...#";
 	map += L"#..........#...#";
 	map += L"#..............#";
 	map += L"#..#.....###...#";
@@ -57,11 +57,11 @@ int main() {
 		//controls
 		if (GetAsyncKeyState((unsigned short)'A') & 0x8000)
 		{
-			fPlayerA -= (1.0f) * fElapsedTime;
+			fPlayerA -= (3.0f) * fElapsedTime;
 		}
 		if (GetAsyncKeyState((unsigned short)'D') & 0x8000)
 		{
-			fPlayerA += (1.0f) * fElapsedTime;
+			fPlayerA += (3.0f) * fElapsedTime;
 		}
 		if (GetAsyncKeyState((unsigned short)'W') & 0x8000)
 		{
