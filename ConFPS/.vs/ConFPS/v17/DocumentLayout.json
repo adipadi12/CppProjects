@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\C\u002B\u002B Projects Git\\CppProjects\\ConFPS\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{32A29FD6-5EC1-4B35-92B5-8F8765AA081A}|ConFPS.vcxproj|C:\\C\u002B\u002B Projects Git\\CppProjects\\ConFPS\\Source.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{32A29FD6-5EC1-4B35-92B5-8F8765AA081A}|ConFPS.vcxproj|solutionrelative:Source.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{32A29FD6-5EC1-4B35-92B5-8F8765AA081A}|ConFPS.vcxproj|C:\\C\u002B\u002B Projects Git\\CppProjects\\ConFPS\\ConFPS.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{32A29FD6-5EC1-4B35-92B5-8F8765AA081A}|ConFPS.vcxproj|solutionrelative:ConFPS.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32A29FD6-5EC1-4B35-92B5-8F8765AA081A}|ConFPS.vcxproj|C:\\C\u002B\u002B Projects Git\\CppProjects\\ConFPS\\Source.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{32A29FD6-5EC1-4B35-92B5-8F8765AA081A}|ConFPS.vcxproj|solutionrelative:Source.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,11 +18,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Source.cpp",
               "DocumentMoniker": "C:\\C\u002B\u002B Projects Git\\CppProjects\\ConFPS\\Source.cpp",
               "RelativeDocumentMoniker": "Source.cpp",
@@ -35,13 +35,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "ConFPS.cpp",
               "DocumentMoniker": "C:\\C\u002B\u002B Projects Git\\CppProjects\\ConFPS\\ConFPS.cpp",
               "RelativeDocumentMoniker": "ConFPS.cpp",
               "ToolTip": "C:\\C\u002B\u002B Projects Git\\CppProjects\\ConFPS\\ConFPS.cpp",
               "RelativeToolTip": "ConFPS.cpp",
-              "ViewState": "AgIAAJ0AAAAAAAAAAAAuwLQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAALQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-01-29T20:36:57.176Z",
               "EditorCaption": ""
